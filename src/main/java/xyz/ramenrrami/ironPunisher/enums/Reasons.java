@@ -14,11 +14,11 @@ public enum Reasons {
 
     Reasons(String displayReason, int days) { this.displayReason = displayReason; this.days = days; }
 
-    public String getDisplayReason(String displayReason) {
+    public String getDisplayReason() {
         return displayReason;
     }
 
-    public int getDays(int days) {
+    public int getDays() {
         return days;
     }
 }
