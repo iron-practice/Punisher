@@ -17,6 +17,7 @@ import org.jetbrains.annotations.Nullable;
 import xyz.ramenrrami.ironPunisher.IronPunisher;
 import xyz.ramenrrami.ironPunisher.enums.Reasons;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -59,12 +60,19 @@ public class PunishCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String @NotNull [] args) {
-        if (args.length != 3) return List.of();
+        List<String> suggestion = new ArrayList<>();
 
-        String input = args[2].toLowerCase();
-        return List.of("").stream()
-                .filter(s -> s.startsWith(input))
-                .toList();
+        if (args.length == 1) {
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                suggestion.add(player.getName());
+            }
+        } else if (args.length == 2) {
+            for (Reasons reason : Reasons.values()) {
+                suggestion.add(reason.name());
+            }
+        }
+
+        return suggestion;
     }
 
 }

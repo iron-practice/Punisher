@@ -7,6 +7,8 @@ public final class IronPunisher extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        saveDefaultConfig();
+
         getCommand("punish").setExecutor(new PunishCommand(this));
         getCommand("punish").setTabCompleter(new PunishCommand(this));
     }
