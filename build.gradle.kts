@@ -18,15 +18,23 @@ java {
 
 tasks {
     runServer {
-        // Configure the Minecraft version for our task.
-        // This is the only required configuration besides applying the plugin.
-        // Your plugin's jar (or shadowJar if present) will be used automatically.
-        minecraftVersion("1.21.11")
-        jvmArgs("-Xms2G", "-Xmx2G")
+        val mcVersion = "1.21.11"
+        minecraftVersion(mcVersion)
+        runDirectory = rootDir.resolve("run/paper/$mcVersion")
+        jvmArgs = listOf(
+            "-Dcom.mojang.eula.agree=true",
+            "-Xms2G",
+            "-Xmx2G"
+        )
+        downloadPlugins {
+            url("https://cdn.modrinth.com/data/Vebnzrzj/versions/b0mk8uS6/LuckPerms-Bukkit-5.5.71.jar?mr_download_reason=standalone&mr_game_version=1.21.11&mr_loader=paper")
+        }
     }
 
     processResources {
         val props = mapOf("version" to version)
+        inputs.properties(props)
+        filteringCharset = "UTF-8"
         filesMatching("plugin.yml") {
             expand(props)
         }
