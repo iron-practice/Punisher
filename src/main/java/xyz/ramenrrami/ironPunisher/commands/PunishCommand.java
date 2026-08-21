@@ -41,7 +41,7 @@ public class PunishCommand implements CommandExecutor, TabCompleter {
                     String punishName = reasons.getDisplayReason();
 
                     Calendar calendar = Calendar.getInstance();
-                    calendar.add(Calendar.DAY_OF_WEEK, punishDays);
+                    calendar.add(Calendar.HOUR, 24 * punishDays);
 
                     player.ban(LegacyComponentSerializer.legacySection().serialize(MiniMessage.miniMessage().deserialize(
                             "<red>You are banned for: <yellow>" + punishDays + "\n\n<reset><gray>Reason: <white>" + punishName + "\n\n<reset><red>You may appeal for this ban at: <yellow>"
