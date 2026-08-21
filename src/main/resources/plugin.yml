@@ -1,0 +1,8 @@
+name: IronPunisher
+version: '${version}'
+
+main: xyz.ramenrrami.ironPunisher.IronPunisher
+api-version: '1.21.11'
+load: STARTUP
+
+authors: [ ue_rami ]
