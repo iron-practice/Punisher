@@ -57,6 +57,9 @@ public class PunishCommand implements CommandExecutor, TabCompleter {
                 }
             }
         }
+        else {
+            sender.sendMessage(Component.text("Invalid command", NamedTextColor.RED));
+        }
 
         return true;
     }
