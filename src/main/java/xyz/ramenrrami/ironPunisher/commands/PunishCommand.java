@@ -50,12 +50,17 @@ public class PunishCommand implements CommandExecutor, TabCompleter {
                             + ironPunisher.getConfig().getString("discord")
                     )), calendar.getTime(), null);
 
-                    ironPunisher.getServer().broadcast(MiniMessage.miniMessage().deserialize("<red>" + name + " <gray>got banned for cheating"));
+                    if (ironPunisher.getConfig().getBoolean("broadcast-message") == true) {
+                        ironPunisher.getServer().broadcast(MiniMessage.miniMessage().deserialize("<red>" + name + " <gray>got banned for cheating"));
+                    }
 
                     if (online != null) {
                         online.kick(MiniMessage.miniMessage().deserialize("<red>You are banned for: <yellow>" + punishDays + "\n\n<reset><gray>Reason: <white>" + punishName + "\n\n<reset><red>You may appeal for this ban at: <yellow>"
                                 + ironPunisher.getConfig().getString("discord")));
-                        ironPunisher.getServer().broadcast(MiniMessage.miniMessage().deserialize("<red>" + onName + " <gray>got banned for cheating"));
+
+                        if (ironPunisher.getConfig().getBoolean("broadcast-message") == true) {
+                            ironPunisher.getServer().broadcast(MiniMessage.miniMessage().deserialize("<red>" + onName + " <gray>got banned for cheating"));
+                        }
                     }
                 } catch (IllegalArgumentException e) {
                     sender.sendMessage(Component.text("Invalid command.", NamedTextColor.RED));
