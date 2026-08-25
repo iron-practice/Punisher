@@ -25,12 +25,10 @@ public class PunishCommand implements CommandExecutor, TabCompleter {
     private IronPunisher ironPunisher;
     public PunishCommand(IronPunisher ironPunisher) { this.ironPunisher = ironPunisher; }
 
-    Reasons reasons;
-    String reasonText = reasons.getDisplayReason();
-    String msg = ironPunisher.getConfig().getString("ban-message");
-
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String @NotNull [] args) {
+        String msg = ironPunisher.getConfig().getString("ban-message");
+
         if (!sender.hasPermission("punisher.punish")) { sender.sendMessage(Component.text("You have no permission for this command.", NamedTextColor.RED)); }
 
         if (args.length == 2) {
@@ -45,6 +43,7 @@ public class PunishCommand implements CommandExecutor, TabCompleter {
 
                     int punishDays = reasons.getDays();
                     String punishName = reasons.getDisplayReason();
+                    String reasonText = reasons.getDisplayReason();
 
                     Calendar calendar = Calendar.getInstance();
                     calendar.add(Calendar.HOUR, 24 * punishDays);
