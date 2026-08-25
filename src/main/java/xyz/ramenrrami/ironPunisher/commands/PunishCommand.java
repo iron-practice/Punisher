@@ -60,7 +60,7 @@ public class PunishCommand implements CommandExecutor, TabCompleter {
                         ironPunisher.getServer().broadcast(c);
                     }
 
-                    if (online != null) {
+                    if (online != null && player == null) {
                         online.kick(MiniMessage.miniMessage().deserialize("<red>You are banned for: <yellow>" + punishDays + "\n\n<reset><gray>Reason: <white>" + punishName + "\n\n<reset><red>You may appeal for this ban at: <yellow>"
                                 + ironPunisher.getConfig().getString("discord")));
 
