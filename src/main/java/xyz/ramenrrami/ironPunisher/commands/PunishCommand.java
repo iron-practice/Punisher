@@ -33,6 +33,8 @@ public class PunishCommand implements CommandExecutor, TabCompleter {
             if (Bukkit.getOfflinePlayer(args[1]) != null) {
                 OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
                 Player online = Bukkit.getPlayer(args[0]);
+                final String name = player.getName();
+                final String onName = online.getName();
 
                 try {
                     Reasons reasons = Reasons.valueOf(args[1].toUpperCase());
@@ -48,9 +50,12 @@ public class PunishCommand implements CommandExecutor, TabCompleter {
                             + ironPunisher.getConfig().getString("discord")
                     )), calendar.getTime(), null);
 
+                    ironPunisher.getServer().broadcast(MiniMessage.miniMessage().deserialize("<red>" + name + " <gray>got banned for cheating"));
+
                     if (online != null) {
                         online.kick(MiniMessage.miniMessage().deserialize("<red>You are banned for: <yellow>" + punishDays + "\n\n<reset><gray>Reason: <white>" + punishName + "\n\n<reset><red>You may appeal for this ban at: <yellow>"
                                 + ironPunisher.getConfig().getString("discord")));
+                        ironPunisher.getServer().broadcast(MiniMessage.miniMessage().deserialize("<red>" + onName + " <gray>got banned for cheating"));
                     }
                 } catch (IllegalArgumentException e) {
                     sender.sendMessage(Component.text("Invalid command.", NamedTextColor.RED));
