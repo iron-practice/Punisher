@@ -1,3 +1,7 @@
 #change the discord invite link wich will be displayed on the ban reason message screen
 #you can also just leave it empty (leave the: '') so it doesn't display anything.
 discord: ''
+
+
+broadcast-message: false
+ban-message: "<gold><player></gold> <white>go banned for <reason>"

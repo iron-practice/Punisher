@@ -3,6 +3,7 @@ package xyz.ramenrrami.ironPunisher.commands;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -24,6 +25,9 @@ public class PunishCommand implements CommandExecutor, TabCompleter {
     private IronPunisher ironPunisher;
     public PunishCommand(IronPunisher ironPunisher) { this.ironPunisher = ironPunisher; }
 
+    Reasons reasons;
+    String reasonText = reasons.getDisplayReason();
+    String msg = ironPunisher.getConfig().getString("ban-message");
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String @NotNull [] args) {
@@ -50,12 +54,23 @@ public class PunishCommand implements CommandExecutor, TabCompleter {
                             + ironPunisher.getConfig().getString("discord")
                     )), calendar.getTime(), null);
 
-                    ironPunisher.getServer().broadcast(MiniMessage.miniMessage().deserialize("<red>" + name + " <gray>got banned for cheating"));
+                    if (ironPunisher.getConfig().getBoolean("broadcast-message") == true) {
+                        Component c = MiniMessage.miniMessage().deserialize(msg,
+                                Placeholder.parsed("reason", reasonText),
+                                Placeholder.parsed("player", name));
+                        ironPunisher.getServer().broadcast(c);
+                    }
 
                     if (online != null) {
                         online.kick(MiniMessage.miniMessage().deserialize("<red>You are banned for: <yellow>" + punishDays + "\n\n<reset><gray>Reason: <white>" + punishName + "\n\n<reset><red>You may appeal for this ban at: <yellow>"
                                 + ironPunisher.getConfig().getString("discord")));
-                        ironPunisher.getServer().broadcast(MiniMessage.miniMessage().deserialize("<red>" + onName + " <gray>got banned for cheating"));
+
+                        if (ironPunisher.getConfig().getBoolean("broadcast-message") == true) {
+                            Component c = MiniMessage.miniMessage().deserialize(msg,
+                                    Placeholder.parsed("reason", reasonText),
+                                    Placeholder.parsed("player", onName));
+                            ironPunisher.getServer().broadcast(c);
+                        }
                     }
                 } catch (IllegalArgumentException e) {
                     sender.sendMessage(Component.text("Invalid command.", NamedTextColor.RED));
