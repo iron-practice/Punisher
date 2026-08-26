@@ -28,6 +28,9 @@ public class PunishCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String @NotNull [] args) {
         String msg = ironPunisher.getConfig().getString("ban-message");
+        if (msg == null) {
+            msg = "";
+        }
 
         if (!sender.hasPermission("punisher.punish")) { sender.sendMessage(Component.text("You have no permission for this command.", NamedTextColor.RED)); }
 
