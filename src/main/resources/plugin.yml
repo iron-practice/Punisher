@@ -1,13 +1,27 @@
 name: IronPunisher
 version: '${version}'
-
 main: xyz.ramenrrami.ironPunisher.IronPunisher
-api-version: '1.21.11'
+api-version: '1.21'
 load: STARTUP
-
-authors: [ ue_rami ]
+authors: [ue_rami]
+description: Fast network-wide punishment management backed by MySQL.
 
 commands:
-  punish:
-    usage: /punish <player> <reason>
+  ban:
+    description: Ban a player across the entire network.
+    aliases: [punish]
+    usage: /ban <player> <reason> <duration>
     permission: punisher.punish
+  unpunish:
+    description: Remove an active punishment across the entire network.
+    aliases: [unban]
+    usage: /unpunish <player>
+    permission: punisher.unpunish
+
+permissions:
+  punisher.punish:
+    description: Allows network-wide bans.
+    default: op
+  punisher.unpunish:
+    description: Allows network-wide unbans.
+    default: op

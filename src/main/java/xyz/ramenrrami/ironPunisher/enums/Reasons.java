@@ -2,23 +2,17 @@ package xyz.ramenrrami.ironPunisher.enums;
 
 public enum Reasons {
 
-    SERVER_ADVERTISEMENT("server advertisement", 7),
-    UNFAIR_ADVANTAGE("unfair advantage", 14),
-    DOXXING("doxxing", 30),
-    INAPPROPRIATE_BEHAVIOR("inappropriate behavior", 14),
-    SCAMMING("scamming", 60);
-
+    SERVER_ADVERTISEMENT("server advertisement"),
+    UNFAIR_ADVANTAGE("unfair advantage"),
+    DOXXING("doxxing"),
+    INAPPROPRIATE_BEHAVIOR("inappropriate behavior"),
+    SCAMMING("scamming");
 
     private final String displayReason;
-    private final int days;
 
-    Reasons(String displayReason, int days) { this.displayReason = displayReason; this.days = days; }
+    Reasons(String displayReason) { this.displayReason = displayReason; }
 
     public String getDisplayReason() {
         return displayReason;
-    }
-
-    public int getDays() {
-        return days;
     }
 }
